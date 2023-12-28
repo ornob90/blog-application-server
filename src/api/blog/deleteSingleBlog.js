@@ -1,7 +1,7 @@
 const validatePostId = require("../../lib/blog/validatePostId");
 const BlogPost = require("../../models/blog");
 
-const getSingleBlogPost = async (req, res, next) => {
+const deleteSingleBlog = async (req, res, next) => {
   try {
     const { postId } = req.params;
 
@@ -9,16 +9,14 @@ const getSingleBlogPost = async (req, res, next) => {
       return res.status(400).send({ error: "Invalid Post ID" });
     }
 
-    const blogPost = await BlogPost.findById(postId);
+    const deletedBlogPost = await BlogPost.findByIdAndDelete(postId);
 
-    if (!blogPost) {
+    if (!deletedBlogPost) {
       return res.status(404).send({ error: "Blog Post not found" });
     }
 
     res.send({
-      status: "success",
-      message: "Data retrieved",
-      blogPost,
+      deleteOne: true,
     });
   } catch (error) {
     console.error(error.message);
@@ -26,4 +24,4 @@ const getSingleBlogPost = async (req, res, next) => {
   }
 };
 
-module.exports = getSingleBlogPost;
+module.exports = deleteSingleBlog;
