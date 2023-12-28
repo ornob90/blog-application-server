@@ -11,6 +11,7 @@ const globalErrorHandler = require("./utils/globalErrorHandler");
 
 const blogRoutes = require("./routes/blog");
 const userRoutes = require("./routes/user");
+const authRoutes = require("./routes/auth");
 
 // utils
 
@@ -29,6 +30,7 @@ app.use(
 
 app.use(blogRoutes);
 app.use(userRoutes);
+app.use(authRoutes);
 
 const port = process.env.PORT || 5000;
 
