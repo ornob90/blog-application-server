@@ -12,11 +12,11 @@ const userSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
-    enum: ["buyer", "seller"],
     required: true,
   },
 });
 
+// converting password to hash before saving into database
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
@@ -33,9 +33,9 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-userSchema.methods.comparePassword = async function (candidatePassword) {
+userSchema.methods.comparePassword = async function (clientPassword) {
   try {
-    return await bcrypt.compare(candidatePassword, this.password);
+    return await bcrypt.compare(clientPassword, this.password);
   } catch (error) {
     throw error;
   }

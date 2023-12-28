@@ -1,11 +1,11 @@
-const { BlogPost } = require("../../models/blog");
+const BlogPost = require("../../models/blog");
 
 const addBlog = async (req, res, next) => {
   try {
     const data = req.body;
 
     if (!data) {
-      return res.status(400).json({ error: "Blog Data are required" });
+      return res.status(400).send({ error: "Blog Data are required" });
     }
 
     const blogPost = new BlogPost(data);
